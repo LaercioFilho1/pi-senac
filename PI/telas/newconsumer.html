@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<title>Cadastro</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" type="text/css" href="/PI-senac-main/PI/css/main.css">
+
+
+
+</head>
+<body>
+	
+	<div class="container">
+		<div class="container-login">
+			<div class="wrap-login">
+				<form  method="post" action="inserir.php" class="login-form">
+					<span class="login-form-title">
+						Faça seu cadastro
+					</span>
+
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form"  id="nome" type="text" name="nome" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="Nome Completo"></span>
+					</div>
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="cpf" type="cpf" name="cpf" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="CPF"></span>
+					</div>
+
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="email" type="email" name="email" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="E-mail"></span>
+					</div>
+					<div class="wrap-input margin-bottom-35">
+						<input class="input-form" id="senha" type="password" name="password">
+						<span class="focus-input-form" data-placeholder="Senha"></span>
+					</div>
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="bairro" type="text" name="bairro" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="Bairro"></span>
+					</div>
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="rua" type="text" name="rua" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="Rua"></span>
+					</div>
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="numero" type="number" name="numero" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="Numero"></span>
+					</div>
+					<div class="wrap-input margin-top-35 margin-bottom-35">
+						<input class="input-form" id="ref" type="text" name="ref" autocomplete="off">
+						<span class="focus-input-form" data-placeholder="Ponto de Referencia"></span>
+					</div>
+
+					<div class="container-login-form-btn">
+						<button id="criar" class="login-form-btn">
+							Concluir cadastro
+						</button>
+					</div>
+
+				</form>
+			</div>
+			<img src="/PI-senac-main/PI/images/login.png" width="300" height="300" class="margin-left-50" />
+		</div>
+	</div>
+	<script>
+		const form = document.getElementById('myForm');
+			form.addEventListener('submit', (event) => {
+			event.preventDefault();
+
+			const formData = new FormData(form);
+			const name = formData.get('name');
+			const email = formData.get('email');
+			const phone = formData.get('phone');
+
+			fetch('insert.php', {
+				method: 'POST',
+				body: JSON.stringify({ name, email, phone }),
+				headers: { 'Content-Type': 'application/json' }
+			})
+				.then(response => response.json())
+				.then(data => console.log(data))
+				.catch(error => console.error(error));
+			});
+
+	</script>
+
+	<script>
+		let inputs = document.getElementsByClassName('input-form');
+		for (let input of inputs) {
+			input.addEventListener("blur", function() {
+				if(input.value.trim() != ""){
+					input.classList.add("has-val");
+				} else {
+					input.classList.remove("has-val");
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
